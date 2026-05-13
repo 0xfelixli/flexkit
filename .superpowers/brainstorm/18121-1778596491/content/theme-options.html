@@ -1,0 +1,55 @@
+<h2>Theme color options</h2>
+<p class="subtitle">Same light editor-style workbench, different accent colors. Pick the one that feels closest to your product.</p>
+
+<div class="cards">
+  <div class="card" data-choice="blue" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="height:260px;background:#f5f7fb;border:1px solid #ccd6e3;color:#162233;font:12px system-ui;display:grid;grid-template-rows:36px 1fr;">
+        <div style="display:flex;align-items:center;gap:8px;background:white;border-bottom:1px solid #d8e0eb;padding:0 10px;"><b>FlexKit</b><span style="background:#2563eb;color:white;padding:5px 9px;">Proxy</span><span>Target</span><span>Repeater</span></div>
+        <div style="display:grid;grid-template-columns:180px 1fr 250px;">
+          <div style="background:#fbfdff;border-right:1px solid #d8e0eb;padding:10px;"><b style="color:#2563eb;">Scope</b><br><br>▾ app.local<br>&nbsp;&nbsp;/api/users<br>&nbsp;&nbsp;/auth/login</div>
+          <div style="padding:10px;"><b>HTTP history</b><div style="margin-top:8px;border-left:4px solid #2563eb;background:#eff6ff;padding:8px;">GET /api/users · 200</div><div style="margin-top:6px;background:white;border:1px solid #d8e0eb;padding:8px;">POST /auth/login · 302</div></div>
+          <div style="background:#fbfdff;border-left:1px solid #d8e0eb;padding:10px;"><b style="color:#2563eb;">Inspector</b><br><br>Headers<br>Params<br>Findings</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. Editor blue</h3>
+      <p>Most familiar for developer tools. Calm, trustworthy, very VS Code-ish.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="teal" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="height:260px;background:#f4faf9;border:1px solid #c9dedb;color:#132925;font:12px system-ui;display:grid;grid-template-rows:36px 1fr;">
+        <div style="display:flex;align-items:center;gap:8px;background:white;border-bottom:1px solid #d5e5e2;padding:0 10px;"><b>FlexKit</b><span style="background:#0f766e;color:white;padding:5px 9px;">Proxy</span><span>Target</span><span>Repeater</span></div>
+        <div style="display:grid;grid-template-columns:180px 1fr 250px;">
+          <div style="background:#fbfefd;border-right:1px solid #d5e5e2;padding:10px;"><b style="color:#0f766e;">Scope</b><br><br>▾ app.local<br>&nbsp;&nbsp;/api/users<br>&nbsp;&nbsp;/auth/login</div>
+          <div style="padding:10px;"><b>HTTP history</b><div style="margin-top:8px;border-left:4px solid #0f766e;background:#e9fbf8;padding:8px;">GET /api/users · 200</div><div style="margin-top:6px;background:white;border:1px solid #d5e5e2;padding:8px;">POST /auth/login · 302</div></div>
+          <div style="background:#fbfefd;border-left:1px solid #d5e5e2;padding:10px;"><b style="color:#0f766e;">Inspector</b><br><br>Headers<br>Params<br>Findings</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. Security teal</h3>
+      <p>Still technical, but less generic than blue. Good for security/network tooling.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="slate-green" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="height:260px;background:#f6f8f6;border:1px solid #d2dbd3;color:#1f2b21;font:12px system-ui;display:grid;grid-template-rows:36px 1fr;">
+        <div style="display:flex;align-items:center;gap:8px;background:white;border-bottom:1px solid #dde5de;padding:0 10px;"><b>FlexKit</b><span style="background:#3f6f4a;color:white;padding:5px 9px;">Proxy</span><span>Target</span><span>Repeater</span></div>
+        <div style="display:grid;grid-template-columns:180px 1fr 250px;">
+          <div style="background:#fcfdfc;border-right:1px solid #dde5de;padding:10px;"><b style="color:#3f6f4a;">Scope</b><br><br>▾ app.local<br>&nbsp;&nbsp;/api/users<br>&nbsp;&nbsp;/auth/login</div>
+          <div style="padding:10px;"><b>HTTP history</b><div style="margin-top:8px;border-left:4px solid #3f6f4a;background:#edf6ee;padding:8px;">GET /api/users · 200</div><div style="margin-top:6px;background:white;border:1px solid #dde5de;padding:8px;">POST /auth/login · 302</div></div>
+          <div style="background:#fcfdfc;border-left:1px solid #dde5de;padding:10px;"><b style="color:#3f6f4a;">Inspector</b><br><br>Headers<br>Params<br>Findings</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. Slate green</h3>
+      <p>Quiet and mature, with a slightly terminal/security flavor. Less “SaaS dashboard”.</p>
+    </div>
+  </div>
+</div>

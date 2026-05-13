@@ -1,0 +1,141 @@
+<h2>Final direction: Carbon blue workbench</h2>
+<p class="subtitle">Light editor-style UI, IBM Carbon-inspired neutral gray system, deep blue accent, mock data only.</p>
+
+<div class="mockup">
+  <div class="mockup-header">Preview: FlexKit Proxy Workspace</div>
+  <div class="mockup-body">
+    <div style="height:620px;border:1px solid #c6c6c6;background:#f4f4f4;color:#161616;font:12px Inter,system-ui,Arial;display:grid;grid-template-rows:34px 38px 1fr 24px;overflow:hidden;">
+      <div style="display:flex;align-items:center;justify-content:space-between;background:#ffffff;border-bottom:1px solid #c6c6c6;padding:0 12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <strong style="font-size:13px;">FlexKit</strong>
+          <span style="color:#525252;">File</span><span style="color:#525252;">Edit</span><span style="color:#525252;">View</span><span style="color:#525252;">Tools</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;color:#6f6f6f;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#198038;display:inline-block;"></span>
+          Mock session
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;background:#ffffff;border-bottom:1px solid #c6c6c6;padding:0 10px;">
+        <div style="display:flex;gap:2px;height:100%;align-items:center;">
+          <span style="border-bottom:2px solid #0043ce;padding:10px 12px 8px;font-weight:700;color:#0043ce;">Proxy</span>
+          <span style="padding:10px 12px 8px;color:#525252;">Target</span>
+          <span style="padding:10px 12px 8px;color:#525252;">Repeater</span>
+          <span style="padding:10px 12px 8px;color:#525252;">Scanner</span>
+          <span style="padding:10px 12px 8px;color:#525252;">Logger</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="border:1px solid #c6c6c6;background:#f4f4f4;padding:5px 9px;color:#525252;">Intercept off</span>
+          <span style="background:#0f62fe;color:white;padding:6px 10px;">New replay</span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:230px 1fr 320px;min-height:0;">
+        <aside style="background:#ffffff;border-right:1px solid #c6c6c6;display:grid;grid-template-rows:34px 1fr;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:1px solid #e0e0e0;">
+            <strong>Scope</strong><span style="color:#6f6f6f;">filter</span>
+          </div>
+          <div style="padding:8px 10px;line-height:24px;">
+            <div style="font-weight:700;">▾ app.local</div>
+            <div style="padding-left:16px;">▾ /api</div>
+            <div style="padding-left:30px;color:#0043ce;font-weight:700;">users</div>
+            <div style="padding-left:30px;">profile</div>
+            <div style="padding-left:16px;">login</div>
+            <div style="padding-left:16px;">checkout</div>
+            <div style="font-weight:700;margin-top:8px;">▾ admin.local</div>
+            <div style="padding-left:16px;">dashboard</div>
+            <div style="padding-left:16px;">settings</div>
+            <div style="color:#6f6f6f;margin-top:12px;">Out of scope</div>
+            <div>▸ cdn.app.local</div>
+          </div>
+        </aside>
+
+        <main style="display:grid;grid-template-rows:44px minmax(180px,42%) 1fr;min-width:0;">
+          <div style="display:flex;align-items:center;gap:8px;padding:0 10px;background:#ffffff;border-bottom:1px solid #c6c6c6;">
+            <span style="border:1px solid #c6c6c6;background:#f4f4f4;padding:6px 9px;">Method: all</span>
+            <span style="border:1px solid #c6c6c6;background:#f4f4f4;padding:6px 9px;">Status: all</span>
+            <span style="flex:1;border:1px solid #c6c6c6;background:#ffffff;padding:6px 9px;color:#6f6f6f;">Filter requests...</span>
+          </div>
+
+          <section style="background:#ffffff;border-bottom:1px solid #c6c6c6;overflow:hidden;">
+            <div style="display:grid;grid-template-columns:70px 82px minmax(220px,1fr) 72px 80px 96px;background:#f4f4f4;color:#525252;border-bottom:1px solid #c6c6c6;font-weight:700;">
+              <span style="padding:8px;">#</span><span style="padding:8px;">Method</span><span style="padding:8px;">Path</span><span style="padding:8px;">Status</span><span style="padding:8px;">Length</span><span style="padding:8px;">Time</span>
+            </div>
+            <div style="display:grid;grid-template-columns:70px 82px minmax(220px,1fr) 72px 80px 96px;border-left:3px solid #0043ce;background:#edf5ff;">
+              <span style="padding:8px;">1024</span><b style="padding:8px;color:#198038;">GET</b><span style="padding:8px;">/api/users?page=1</span><span style="padding:8px;">200</span><span style="padding:8px;">4.8 KB</span><span style="padding:8px;">42 ms</span>
+            </div>
+            <div style="display:grid;grid-template-columns:70px 82px minmax(220px,1fr) 72px 80px 96px;border-top:1px solid #e0e0e0;">
+              <span style="padding:8px;">1023</span><b style="padding:8px;color:#8a3800;">POST</b><span style="padding:8px;">/auth/login</span><span style="padding:8px;">302</span><span style="padding:8px;">1.2 KB</span><span style="padding:8px;">95 ms</span>
+            </div>
+            <div style="display:grid;grid-template-columns:70px 82px minmax(220px,1fr) 72px 80px 96px;border-top:1px solid #e0e0e0;">
+              <span style="padding:8px;">1022</span><b style="padding:8px;color:#198038;">GET</b><span style="padding:8px;">/assets/app.js</span><span style="padding:8px;">200</span><span style="padding:8px;">92 KB</span><span style="padding:8px;">18 ms</span>
+            </div>
+          </section>
+
+          <section style="display:grid;grid-template-columns:1fr 1fr;min-height:0;background:#ffffff;">
+            <div style="border-right:1px solid #c6c6c6;display:grid;grid-template-rows:34px 1fr;">
+              <div style="display:flex;align-items:center;gap:14px;background:#f4f4f4;border-bottom:1px solid #c6c6c6;padding:0 10px;">
+                <strong style="color:#0043ce;">Request</strong><span>Pretty</span><span>Raw</span><span>Hex</span>
+              </div>
+              <pre style="margin:0;padding:12px;font:12px ui-monospace,SFMono-Regular,Menlo,monospace;line-height:19px;color:#161616;overflow:hidden;">GET /api/users?page=1 HTTP/1.1
+Host: app.local
+Authorization: Bearer eyJhbGciOi...
+Accept: application/json
+
+{"role":"admin","active":true}</pre>
+            </div>
+            <div style="display:grid;grid-template-rows:34px 1fr;">
+              <div style="display:flex;align-items:center;gap:14px;background:#f4f4f4;border-bottom:1px solid #c6c6c6;padding:0 10px;">
+                <strong style="color:#0043ce;">Response</strong><span>Pretty</span><span>Raw</span><span>Render</span>
+              </div>
+              <pre style="margin:0;padding:12px;font:12px ui-monospace,SFMono-Regular,Menlo,monospace;line-height:19px;color:#161616;overflow:hidden;">HTTP/1.1 200 OK
+Content-Type: application/json
+Set-Cookie: session=...
+
+{
+  "users": [
+    {"id": 1, "email": "admin@app.local"}
+  ]
+}</pre>
+            </div>
+          </section>
+        </main>
+
+        <aside style="background:#ffffff;border-left:1px solid #c6c6c6;display:grid;grid-template-rows:34px 1fr;">
+          <div style="display:flex;align-items:center;gap:14px;padding:0 10px;border-bottom:1px solid #e0e0e0;">
+            <strong>Inspector</strong><span style="color:#0043ce;">Issues</span><span>Notes</span>
+          </div>
+          <div style="padding:10px;display:grid;align-content:start;gap:10px;">
+            <div style="border:1px solid #c6c6c6;background:#ffffff;padding:10px;">
+              <strong>Potential CSRF risk</strong>
+              <p style="margin:6px 0 0;color:#525252;">POST request has cookie auth but no CSRF token parameter.</p>
+            </div>
+            <div style="border:1px solid #c6c6c6;background:#ffffff;padding:10px;">
+              <strong>Headers</strong>
+              <p style="margin:6px 0 0;color:#525252;">Authorization, Accept, User-Agent</p>
+            </div>
+            <div style="border:1px solid #c6c6c6;background:#ffffff;padding:10px;">
+              <strong>Params</strong>
+              <p style="margin:6px 0 0;color:#525252;">page = 1, role = admin</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;background:#ffffff;border-top:1px solid #c6c6c6;color:#6f6f6f;padding:0 10px;">
+        <span>1024 requests · 3 in scope · 1 selected</span>
+        <span>Proxy mock · No live traffic</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="approve-carbon-workbench" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content">
+      <h3>Approve this UI direction</h3>
+      <p>Implement the mock page in <code>src/App.tsx</code> and <code>src/App.css</code> with this Carbon blue theme.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,141 @@
+<h2>Selected direction: Modern light security workbench</h2>
+<p class="subtitle">A concrete first-screen design for the mock-data prototype. This keeps Burp-like workflows, but the visual language is closer to a code editor/workbench.</p>
+
+<div class="mockup">
+  <div class="mockup-header">Preview: FlexKit Proxy Workspace</div>
+  <div class="mockup-body">
+    <div style="height:620px;border:1px solid #cfd6df;background:#f5f7fa;color:#17212b;font:12px Inter,system-ui,Arial;display:grid;grid-template-rows:34px 38px 1fr 24px;overflow:hidden;">
+      <div style="display:flex;align-items:center;justify-content:space-between;background:#ffffff;border-bottom:1px solid #d9dee7;padding:0 12px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <strong style="font-size:13px;">FlexKit</strong>
+          <span>File</span><span>Edit</span><span>View</span><span>Tools</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;color:#637083;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#2fb344;display:inline-block;"></span>
+          Mock session
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;background:#f8fafc;border-bottom:1px solid #d9dee7;padding:0 10px;">
+        <div style="display:flex;gap:4px;">
+          <span style="background:#fff;border:1px solid #cfd6df;border-bottom-color:#fff;padding:7px 12px;font-weight:700;color:#d65f16;">Proxy</span>
+          <span style="padding:7px 12px;color:#536171;">Target</span>
+          <span style="padding:7px 12px;color:#536171;">Repeater</span>
+          <span style="padding:7px 12px;color:#536171;">Scanner</span>
+          <span style="padding:7px 12px;color:#536171;">Logger</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="border:1px solid #cfd6df;background:#fff;padding:5px 9px;">Intercept off</span>
+          <span style="background:#e96f21;color:white;padding:6px 10px;">New replay</span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:230px 1fr 320px;min-height:0;">
+        <aside style="background:#fbfcfe;border-right:1px solid #d9dee7;display:grid;grid-template-rows:34px 1fr;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0 10px;border-bottom:1px solid #e2e6ee;">
+            <strong>Scope</strong><span style="color:#8b96a6;">filter</span>
+          </div>
+          <div style="padding:8px 10px;line-height:24px;">
+            <div style="font-weight:700;">▾ app.local</div>
+            <div style="padding-left:16px;">▾ /api</div>
+            <div style="padding-left:30px;color:#d65f16;font-weight:700;">users</div>
+            <div style="padding-left:30px;">profile</div>
+            <div style="padding-left:16px;">login</div>
+            <div style="padding-left:16px;">checkout</div>
+            <div style="font-weight:700;margin-top:8px;">▾ admin.local</div>
+            <div style="padding-left:16px;">dashboard</div>
+            <div style="padding-left:16px;">settings</div>
+            <div style="color:#8b96a6;margin-top:12px;">Out of scope</div>
+            <div>▸ cdn.app.local</div>
+          </div>
+        </aside>
+
+        <main style="display:grid;grid-template-rows:44px minmax(180px,42%) 1fr;min-width:0;">
+          <div style="display:flex;align-items:center;gap:8px;padding:0 10px;background:#fff;border-bottom:1px solid #d9dee7;">
+            <span style="border:1px solid #cfd6df;background:#f8fafc;padding:6px 9px;">Method: all</span>
+            <span style="border:1px solid #cfd6df;background:#f8fafc;padding:6px 9px;">Status: all</span>
+            <span style="flex:1;border:1px solid #cfd6df;background:#fff;padding:6px 9px;color:#8b96a6;">Filter requests...</span>
+          </div>
+
+          <section style="background:#fff;border-bottom:1px solid #d9dee7;overflow:hidden;">
+            <div style="display:grid;grid-template-columns:70px 82px minmax(220px,1fr) 72px 80px 96px;background:#f3f5f8;color:#5d6878;border-bottom:1px solid #d9dee7;font-weight:700;">
+              <span style="padding:8px;">#</span><span style="padding:8px;">Method</span><span style="padding:8px;">Path</span><span style="padding:8px;">Status</span><span style="padding:8px;">Length</span><span style="padding:8px;">Time</span>
+            </div>
+            <div style="display:grid;grid-template-columns:70px 82px minmax(220px,1fr) 72px 80px 96px;border-left:3px solid #e96f21;background:#fff7f1;">
+              <span style="padding:8px;">1024</span><b style="padding:8px;color:#117744;">GET</b><span style="padding:8px;">/api/users?page=1</span><span style="padding:8px;">200</span><span style="padding:8px;">4.8 KB</span><span style="padding:8px;">42 ms</span>
+            </div>
+            <div style="display:grid;grid-template-columns:70px 82px minmax(220px,1fr) 72px 80px 96px;border-top:1px solid #edf0f4;">
+              <span style="padding:8px;">1023</span><b style="padding:8px;color:#8a4f00;">POST</b><span style="padding:8px;">/auth/login</span><span style="padding:8px;">302</span><span style="padding:8px;">1.2 KB</span><span style="padding:8px;">95 ms</span>
+            </div>
+            <div style="display:grid;grid-template-columns:70px 82px minmax(220px,1fr) 72px 80px 96px;border-top:1px solid #edf0f4;">
+              <span style="padding:8px;">1022</span><b style="padding:8px;color:#117744;">GET</b><span style="padding:8px;">/assets/app.js</span><span style="padding:8px;">200</span><span style="padding:8px;">92 KB</span><span style="padding:8px;">18 ms</span>
+            </div>
+          </section>
+
+          <section style="display:grid;grid-template-columns:1fr 1fr;min-height:0;background:#fff;">
+            <div style="border-right:1px solid #d9dee7;display:grid;grid-template-rows:34px 1fr;">
+              <div style="display:flex;align-items:center;gap:14px;background:#f8fafc;border-bottom:1px solid #d9dee7;padding:0 10px;">
+                <strong style="color:#d65f16;">Request</strong><span>Pretty</span><span>Raw</span><span>Hex</span>
+              </div>
+              <pre style="margin:0;padding:12px;font:12px ui-monospace,SFMono-Regular,Menlo,monospace;line-height:19px;color:#1f2937;overflow:hidden;">GET /api/users?page=1 HTTP/1.1
+Host: app.local
+Authorization: Bearer eyJhbGciOi...
+Accept: application/json
+
+{"role":"admin","active":true}</pre>
+            </div>
+            <div style="display:grid;grid-template-rows:34px 1fr;">
+              <div style="display:flex;align-items:center;gap:14px;background:#f8fafc;border-bottom:1px solid #d9dee7;padding:0 10px;">
+                <strong style="color:#d65f16;">Response</strong><span>Pretty</span><span>Raw</span><span>Render</span>
+              </div>
+              <pre style="margin:0;padding:12px;font:12px ui-monospace,SFMono-Regular,Menlo,monospace;line-height:19px;color:#1f2937;overflow:hidden;">HTTP/1.1 200 OK
+Content-Type: application/json
+Set-Cookie: session=...
+
+{
+  "users": [
+    {"id": 1, "email": "admin@app.local"}
+  ]
+}</pre>
+            </div>
+          </section>
+        </main>
+
+        <aside style="background:#fbfcfe;border-left:1px solid #d9dee7;display:grid;grid-template-rows:34px 1fr;">
+          <div style="display:flex;align-items:center;gap:14px;padding:0 10px;border-bottom:1px solid #e2e6ee;">
+            <strong>Inspector</strong><span style="color:#d65f16;">Issues</span><span>Notes</span>
+          </div>
+          <div style="padding:10px;display:grid;align-content:start;gap:10px;">
+            <div style="border:1px solid #d9dee7;background:#fff;padding:10px;">
+              <strong>Potential CSRF risk</strong>
+              <p style="margin:6px 0 0;color:#5d6878;">POST request has cookie auth but no CSRF token parameter.</p>
+            </div>
+            <div style="border:1px solid #d9dee7;background:#fff;padding:10px;">
+              <strong>Headers</strong>
+              <p style="margin:6px 0 0;color:#5d6878;">Authorization, Accept, User-Agent</p>
+            </div>
+            <div style="border:1px solid #d9dee7;background:#fff;padding:10px;">
+              <strong>Params</strong>
+              <p style="margin:6px 0 0;color:#5d6878;">page = 1, role = admin</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;background:#f8fafc;border-top:1px solid #d9dee7;color:#647083;padding:0 10px;">
+        <span>1024 requests · 3 in scope · 1 selected</span>
+        <span>Proxy mock · No live traffic</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="approve-modern-workbench" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content">
+      <h3>Use this as the first implementation</h3>
+      <p>I will implement this in <code>src/App.tsx</code> and <code>src/App.css</code> with mock data and local selection interactions.</p>
+    </div>
+  </div>
+</div>

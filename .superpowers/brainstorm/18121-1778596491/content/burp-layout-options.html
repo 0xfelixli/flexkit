@@ -1,0 +1,84 @@
+<h2>Burp-like interface direction</h2>
+<p class="subtitle">Choose the first-screen shape for the mock-data prototype. The goal is a usable security testing workbench, not real traffic capture yet.</p>
+
+<div class="cards">
+  <div class="card" data-choice="classic-burp" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="height:260px;background:#242424;border:1px solid #3b3b3b;color:#d8d8d8;font:12px system-ui;display:grid;grid-template-rows:34px 1fr;">
+        <div style="display:flex;gap:6px;align-items:center;background:#323232;border-bottom:1px solid #484848;padding:0 10px;">
+          <span style="background:#f07b28;color:#111;padding:4px 8px;border-radius:2px;font-weight:700;">Proxy</span>
+          <span>Target</span><span>Intruder</span><span>Repeater</span><span>Scanner</span>
+        </div>
+        <div style="display:grid;grid-template-columns:170px 1fr 300px;">
+          <div style="border-right:1px solid #3e3e3e;padding:10px;background:#2c2c2c;">
+            <div style="color:#f07b28;font-weight:700;margin-bottom:8px;">Target tree</div>
+            <div>▾ app.local</div><div style="padding-left:14px;">/api</div><div style="padding-left:14px;">/login</div><div>▸ cdn.local</div>
+          </div>
+          <div style="display:grid;grid-template-rows:1fr 1fr;">
+            <div style="padding:10px;border-bottom:1px solid #3e3e3e;">
+              <div style="display:grid;grid-template-columns:60px 1fr 70px 70px;gap:6px;color:#aaa;margin-bottom:8px;"><span>Method</span><span>URL</span><span>Status</span><span>Size</span></div>
+              <div style="background:#3a312b;border-left:3px solid #f07b28;padding:6px;">GET /api/users 200 4.8KB</div>
+              <div style="padding:6px;">POST /login 302 1.1KB</div>
+              <div style="padding:6px;">GET /assets/app.js 200 92KB</div>
+            </div>
+            <div style="padding:10px;font-family:ui-monospace,monospace;color:#bce3b6;">GET /api/users HTTP/1.1<br>Host: app.local<br>Cookie: session=...</div>
+          </div>
+          <div style="border-left:1px solid #3e3e3e;padding:10px;background:#292929;">
+            <div style="color:#f07b28;font-weight:700;margin-bottom:8px;">Inspector</div>
+            <div>Headers</div><div>Params</div><div>Cookies</div><div>Notes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. Classic Burp desktop</h3>
+      <p>Dark, dense, tab-heavy, immediately recognizable. Best if you want a security-tool feel with maximum information on screen.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="modern-workbench" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="height:260px;background:#f4f5f7;border:1px solid #d6d9df;color:#1f2933;font:12px system-ui;display:grid;grid-template-rows:42px 1fr;">
+        <div style="display:flex;justify-content:space-between;align-items:center;background:white;border-bottom:1px solid #d9dde5;padding:0 12px;">
+          <strong>FlexKit</strong><span style="color:#ef6c1f;">Live mock session</span>
+        </div>
+        <div style="display:grid;grid-template-columns:72px 220px 1fr 320px;">
+          <div style="background:#232a31;color:#cbd5df;padding:10px;display:grid;gap:10px;align-content:start;"><b style="color:#ff8a3d;">Proxy</b><span>Target</span><span>Scan</span><span>Tools</span></div>
+          <div style="padding:12px;border-right:1px solid #d9dde5;background:#fff;"><b>Scope</b><br><br>app.local<br>api.app.local<br>admin.app.local</div>
+          <div style="padding:12px;"><b>HTTP history</b><div style="margin-top:8px;background:#fff;border:1px solid #dce0e8;padding:8px;border-left:4px solid #ff7a1a;">POST /auth/login</div><div style="margin-top:6px;background:#fff;border:1px solid #dce0e8;padding:8px;">GET /api/profile</div></div>
+          <div style="padding:12px;background:#fff;border-left:1px solid #d9dde5;"><b>Request details</b><br><br><code>Authorization: Bearer ...</code><br><br><span style="color:#ef6c1f;">Potential issue: missing CSRF token</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. Modern workbench</h3>
+      <p>Still Burp-inspired, but cleaner and more productized. Best for a first prototype that can grow into your own tool identity.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="proxy-first" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="height:260px;background:#171b20;border:1px solid #313840;color:#dce4ea;font:12px system-ui;display:grid;grid-template-rows:36px 1fr;">
+        <div style="display:flex;gap:8px;align-items:center;background:#20262d;border-bottom:1px solid #38414a;padding:0 10px;">
+          <strong style="color:#ff8842;">Intercept</strong><span>HTTP history</span><span>WebSocket</span><span>Rules</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;">
+          <div style="padding:12px;border-right:1px solid #38414a;">
+            <b style="color:#ff8842;">Intercepted request</b><br><br>
+            <div style="font-family:ui-monospace,monospace;background:#101317;padding:10px;border:1px solid #38414a;">POST /checkout HTTP/1.1<br>Host: shop.local<br>Content-Type: application/json<br><br>{"amount":199}</div>
+          </div>
+          <div style="padding:12px;">
+            <b>Actions</b><br><br>
+            <button style="background:#ff8842;border:0;padding:7px 12px;">Forward</button>
+            <button style="margin-left:6px;background:#303842;color:#dce4ea;border:0;padding:7px 12px;">Drop</button>
+            <div style="margin-top:14px;color:#a9b4be;">Inspector panels below request editor</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. Proxy-first console</h3>
+      <p>Focused on intercept, edit, forward/drop workflows. Best if the app’s first real feature will be a proxy workflow.</p>
+    </div>
+  </div>
+</div>
