@@ -4,16 +4,16 @@
 
 .repeater-list-panel,
 .repeater-inspector-panel {
-  background: var(--fk-surface);
+  background: var(--fk-surface-subtle);
 }
 
 .repeater-list {
   display: flex;
   min-height: 0;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   overflow: auto;
-  padding: 8px;
+  padding: 8px 7px;
 }
 
 .repeater-item {
@@ -24,17 +24,24 @@
   align-items: start;
   justify-content: stretch;
   gap: 10px;
+  border: 1px solid transparent;
   border-left: 2px solid transparent;
   border-radius: 2px;
+  background: transparent;
   padding: 8px 8px 8px 7px;
   text-align: left;
+  transition:
+    background-color 100ms ease,
+    border-color 100ms ease;
 }
 
 .repeater-item:hover {
+  border-color: var(--fk-border-subtle);
   background: var(--fk-surface-hover);
 }
 
 .repeater-item.selected {
+  border-color: var(--fk-selected-strong);
   border-left-color: var(--fk-accent-strong);
   background: var(--fk-selected);
 }
@@ -45,10 +52,20 @@
   gap: 3px;
 }
 
+.repeater-item strong {
+  overflow: hidden;
+  color: var(--fk-text);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .repeater-item code {
   overflow: hidden;
   color: var(--fk-muted);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--fk-font-mono);
   font-size: 11px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -78,8 +95,19 @@
 }
 
 .repeater-toolbar input {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--fk-font-mono);
   font-size: 12px;
+}
+
+.target-input {
+  height: var(--fk-control-height);
+  border-radius: 2px;
+  background: var(--fk-surface);
+}
+
+.target-input:focus-visible {
+  border-color: var(--fk-accent);
+  box-shadow: inset 0 0 0 1px var(--fk-accent);
 }
 
 .method-badge {

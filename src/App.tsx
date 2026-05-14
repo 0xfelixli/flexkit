@@ -8,10 +8,30 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import {
+  CirclePause,
+  Clipboard,
+  Copy,
+  Filter,
+  PanelRightClose,
+  PanelRightOpen,
+  Plus,
+  Repeat2,
+  Search,
+  Send,
+  ShieldCheck,
+} from "lucide-react";
 import { Group, Panel, Separator } from "react-resizable-panels";
 import { type EditorMode } from "./editorFormatting";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createReplayResult } from "./repeater";
@@ -19,6 +39,7 @@ import "./App.css";
 
 type RequestMethod = "GET" | "POST" | "PUT" | "DELETE";
 type InspectorTab = "Issues" | "Headers" | "Params" | "Cookies";
+type ProxyTab = "Intercept" | "HTTP History" | "WebSockets" | "Match & Replace" | "Settings";
 
 type HttpRequest = {
   id: number;
@@ -53,11 +74,26 @@ type RepeaterItem = {
 };
 
 const modules = ["Proxy", "Target", "Repeater", "Scanner", "Logger"];
+const proxyTabs: ProxyTab[] = [
+  "Intercept",
+  "HTTP History",
+  "WebSockets",
+  "Match & Replace",
+  "Settings",
+];
 const filterChips = ["Method: all", "Status: all", "In scope", "JSON"];
 const editorModes: EditorMode[] = ["Pretty", "Raw", "Hex"];
 const inspectorTabs: InspectorTab[] = ["Issues", "Headers", "Params", "Cookies"];
 const columnHelper = createColumnHelper<HttpRequest>();
 const CodeEditor = lazy(() => import("./CodeEditor"));
+
+function copyToClipboard(value: string) {
+  void navigator.clipboard?.writeText(value);
+}
+
+function getRequestUrl(request: HttpRequest) {
+  return `https://${request.host}${request.path}`;
+}
 
 const historyColumns = [
   columnHelper.accessor("id", {
@@ -301,10 +337,12 @@ const repeaterSeeds: RepeaterItem[] = [
 
 function App() {
   const [activeModule, setActiveModule] = useState("Proxy");
+  const [activeProxyTab, setActiveProxyTab] = useState<ProxyTab>("HTTP History");
   const [selectedRequestId, setSelectedRequestId] = useState(requests[0].id);
   const [requestMode, setRequestMode] = useState<EditorMode>("Pretty");
   const [responseMode, setResponseMode] = useState<EditorMode>("Pretty");
   const [inspectorTab, setInspectorTab] = useState<InspectorTab>("Issues");
+  const [inspectorCollapsed, setInspectorCollapsed] = useState(false);
   const [repeaterItems, setRepeaterItems] = useState(repeaterSeeds);
   const [selectedRepeaterId, setSelectedRepeaterId] = useState(repeaterSeeds[0].id);
   const [repeaterRequestMode, setRepeaterRequestMode] =
@@ -354,61 +392,142 @@ function App() {
     );
   }
 
+  function sendHistoryToRepeater(request: HttpRequest) {
+    const nextItem: RepeaterItem = {
+      id: `rep-${request.id}`,
+      name: `${request.method} ${request.path}`,
+      method: request.method,
+      target: getRequestUrl(request),
+      request: request.request,
+      response: request.response,
+      status: request.status,
+      time: request.time,
+      lastRun: "From history",
+    };
+
+    setRepeaterItems((items) => {
+      const exists = items.some((item) => item.id === nextItem.id);
+
+      return exists
+        ? items.map((item) => (item.id === nextItem.id ? nextItem : item))
+        : [nextItem, ...items];
+    });
+    setSelectedRepeaterId(nextItem.id);
+    setActiveModule("Repeater");
+  }
+
   return (
     <main className="app-shell">
       <header className="menu-bar">
         <div className="brand-cluster">
           <div className="brand-mark">F</div>
           <strong>FlexKit</strong>
-          <nav className="menu-items" aria-label="Application menu">
-            <Button className="chrome-button" size="xs" variant="ghost">
-              File
-            </Button>
-            <Button className="chrome-button" size="xs" variant="ghost">
-              Edit
-            </Button>
-            <Button className="chrome-button" size="xs" variant="ghost">
-              View
-            </Button>
-            <Button className="chrome-button" size="xs" variant="ghost">
-              Tools
-            </Button>
-          </nav>
+          <Tabs
+            className="main-tabs-wrapper"
+            onValueChange={setActiveModule}
+            value={activeModule}
+          >
+            <TabsList className="main-tabs" variant="line">
+              {modules.map((module) => (
+                <TabsTrigger className="main-tab" key={module} value={module}>
+                  {module}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
         </div>
-        <div className="session-state">
-          <span className="status-dot" />
-          Mock session
+        <div className="top-actions">
+          <div className="module-actions">
+            <Button className="workbench-button secondary-action" size="sm" variant="outline">
+              <CirclePause data-icon="inline-start" />
+              Intercept off
+            </Button>
+            <Button className="workbench-button primary-action" size="sm">
+              <Plus data-icon="inline-start" />
+              New replay
+            </Button>
+          </div>
+          <div className="session-state">
+            <span className="status-dot" />
+            <span>Mock session</span>
+          </div>
         </div>
       </header>
 
-      <section className="module-bar" aria-label="Workspace modules">
-        <Tabs
-          className="module-tabs-wrapper"
-          onValueChange={setActiveModule}
-          value={activeModule}
-        >
-          <TabsList className="module-tabs" variant="line">
-            {modules.map((module) => (
-              <TabsTrigger className="module-tab" key={module} value={module}>
-                {module}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
-        <div className="module-actions">
-          <Button className="workbench-button secondary-action" size="sm" variant="outline">
-            Intercept off
-          </Button>
-          <Button className="workbench-button primary-action" size="sm">
-            New replay
-          </Button>
-        </div>
+      <section className="context-bar" aria-label="Module context">
+        {activeModule === "Proxy" ? (
+          <>
+            <Tabs
+              className="proxy-tabs-wrapper"
+              onValueChange={(tab) => setActiveProxyTab(tab as ProxyTab)}
+              value={activeProxyTab}
+            >
+              <TabsList className="proxy-tabs" variant="line">
+                {proxyTabs.map((tab) => (
+                  <TabsTrigger className="proxy-tab" key={tab} value={tab}>
+                    {tab}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+            <div className="context-meta">
+              <span>Filter on</span>
+              <span>Listener :8080</span>
+            </div>
+          </>
+        ) : activeModule === "Repeater" ? (
+          <>
+            <div className="replay-tabs" role="tablist" aria-label="Replay tabs">
+              {repeaterItems.map((item) => (
+                <Button
+                  className={
+                    item.id === selectedRepeater.id
+                      ? "replay-tab selected"
+                      : "replay-tab"
+                  }
+                  key={item.id}
+                  onClick={() => setSelectedRepeaterId(item.id)}
+                  size="xs"
+                  variant="ghost"
+                >
+                  {item.name}
+                </Button>
+              ))}
+              <Button className="replay-tab replay-tab-add" size="xs" variant="ghost">
+                <Plus data-icon="inline-start" />
+              </Button>
+            </div>
+            <div className="context-meta">
+              <span>{selectedRepeater.method}</span>
+              <span>{selectedRepeater.status} · {selectedRepeater.time}</span>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="context-placeholder">{activeModule}</div>
+            <div className="context-meta">
+              <span>Mock module</span>
+            </div>
+          </>
+        )}
       </section>
 
       {activeModule === "Repeater" ? (
         <RepeaterWorkspace
           editorModes={editorModes}
           items={repeaterItems}
+          onCopyTarget={(item) => copyToClipboard(item.target)}
+          onDuplicateItem={(item) => {
+            const duplicatedItem = {
+              ...item,
+              id: `${item.id}-copy-${Date.now()}`,
+              name: `${item.name} copy`,
+              lastRun: "Duplicated",
+            };
+
+            setRepeaterItems((currentItems) => [duplicatedItem, ...currentItems]);
+            setSelectedRepeaterId(duplicatedItem.id);
+          }}
           onRequestChange={updateRepeaterRequest}
           onSend={sendRepeaterRequest}
           requestMode={repeaterRequestMode}
@@ -423,14 +542,15 @@ function App() {
       <Group className="workspace" id="flexkit-workspace" orientation="horizontal">
         <Panel
           className="scope-panel panel"
-          defaultSize="18%"
+          defaultSize="16%"
           id="scope"
-          minSize="14%"
+          minSize="12%"
         >
           <aside className="panel-fill">
             <div className="panel-header">
               <strong>Scope</strong>
               <Button className="chrome-button" size="xs" variant="ghost">
+                <Filter data-icon="inline-start" />
                 Filter
               </Button>
             </div>
@@ -466,7 +586,7 @@ function App() {
 
         <Panel
           className="traffic-panel"
-          defaultSize="57%"
+          defaultSize={inspectorCollapsed ? "80%" : "60%"}
           id="traffic"
           minSize="38%"
         >
@@ -478,21 +598,33 @@ function App() {
                 </Button>
               ))}
               <label className="request-search">
-                <span>Search</span>
-                <Input placeholder="Filter requests..." />
+                <span className="request-search-label">
+                  <Search aria-hidden="true" />
+                  Search
+                </span>
+                <Input className="request-search-input" placeholder="Filter requests..." />
               </label>
             </div>
 
             <Group className="traffic-split" orientation="vertical">
-              <Panel defaultSize="38%" id="history" minSize="24%">
+              <Panel defaultSize="48%" id="history" minSize="30%">
                 <HistoryTable
+                  onCopyRequest={(request) => copyToClipboard(request.request)}
+                  onCopyResponse={(request) => copyToClipboard(request.response)}
+                  onCopyUrl={(request) => copyToClipboard(getRequestUrl(request))}
+                  onSendToRepeater={sendHistoryToRepeater}
+                  onShowHeaders={(request) => {
+                    setSelectedRequestId(request.id);
+                    setInspectorCollapsed(false);
+                    setInspectorTab("Headers");
+                  }}
                   selectedRequestId={selectedRequest.id}
                   setSelectedRequestId={setSelectedRequestId}
                   table={table}
                 />
               </Panel>
               <Separator className="resize-handle horizontal" />
-              <Panel defaultSize="62%" id="editors" minSize="36%">
+              <Panel defaultSize="52%" id="editors" minSize="34%">
                 <Group className="editors" orientation="horizontal">
                   <Panel defaultSize="50%" id="request-editor" minSize="28%">
                     <EditorPane
@@ -522,34 +654,65 @@ function App() {
         <Separator className="resize-handle vertical inspector-resize" />
 
         <Panel
-          className="inspector-panel panel"
-          defaultSize="25%"
+          className={
+            inspectorCollapsed
+              ? "inspector-panel panel inspector-panel-collapsed"
+              : "inspector-panel panel"
+          }
+          defaultSize={inspectorCollapsed ? "4%" : "24%"}
           id="inspector"
-          minSize="18%"
+          maxSize={inspectorCollapsed ? "4%" : "32%"}
+          minSize={inspectorCollapsed ? "4%" : "18%"}
         >
-          <aside className="panel-fill">
-            <div className="panel-header">
-              <strong>Inspector</strong>
-              <span>{selectedRequest.host}</span>
-            </div>
-            <Tabs
-              onValueChange={(tab) => setInspectorTab(tab as InspectorTab)}
-              value={inspectorTab}
-            >
-              <TabsList
-                aria-label="Inspector tabs"
-                className="inspector-tabs"
-                variant="line"
+          {inspectorCollapsed ? (
+            <aside className="inspector-rail">
+              <Button
+                aria-label="Expand inspector"
+                className="chrome-button inspector-toggle"
+                onClick={() => setInspectorCollapsed(false)}
+                size="icon-xs"
+                variant="ghost"
               >
-                {inspectorTabs.map((tab) => (
-                  <TabsTrigger key={tab} value={tab}>
-                    {tab}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
-            <InspectorContent request={selectedRequest} tab={inspectorTab} />
-          </aside>
+                <PanelRightOpen />
+              </Button>
+              <span>Inspector</span>
+            </aside>
+          ) : (
+            <aside className="panel-fill">
+              <div className="panel-header inspector-header">
+                <div>
+                  <strong>Inspector</strong>
+                  <span>{selectedRequest.host}</span>
+                </div>
+                <Button
+                  aria-label="Collapse inspector"
+                  className="chrome-button inspector-toggle"
+                  onClick={() => setInspectorCollapsed(true)}
+                  size="icon-xs"
+                  variant="ghost"
+                >
+                  <PanelRightClose />
+                </Button>
+              </div>
+              <Tabs
+                onValueChange={(tab) => setInspectorTab(tab as InspectorTab)}
+                value={inspectorTab}
+              >
+                <TabsList
+                  aria-label="Inspector tabs"
+                  className="inspector-tabs"
+                  variant="line"
+                >
+                  {inspectorTabs.map((tab) => (
+                    <TabsTrigger key={tab} value={tab}>
+                      {tab}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </Tabs>
+              <InspectorContent request={selectedRequest} tab={inspectorTab} />
+            </aside>
+          )}
         </Panel>
       </Group>
       )}
@@ -563,12 +726,22 @@ function App() {
 }
 
 type HistoryTableProps = {
+  onCopyRequest: (request: HttpRequest) => void;
+  onCopyResponse: (request: HttpRequest) => void;
+  onCopyUrl: (request: HttpRequest) => void;
+  onSendToRepeater: (request: HttpRequest) => void;
+  onShowHeaders: (request: HttpRequest) => void;
   selectedRequestId: number;
   setSelectedRequestId: (id: number) => void;
   table: Table<HttpRequest>;
 };
 
 function HistoryTable({
+  onCopyRequest,
+  onCopyResponse,
+  onCopyUrl,
+  onSendToRepeater,
+  onShowHeaders,
   selectedRequestId,
   setSelectedRequestId,
   table,
@@ -612,6 +785,11 @@ function HistoryTable({
             return (
               <HistoryRow
                 key={row.id}
+                onCopyRequest={onCopyRequest}
+                onCopyResponse={onCopyResponse}
+                onCopyUrl={onCopyUrl}
+                onSendToRepeater={onSendToRepeater}
+                onShowHeaders={onShowHeaders}
                 row={row}
                 selectedRequestId={selectedRequestId}
                 setSelectedRequestId={setSelectedRequestId}
@@ -739,6 +917,7 @@ function RepeaterWorkspace({
           <div className="panel-header">
             <strong>Repeater</strong>
               <Button className="chrome-button" size="xs" variant="ghost">
+                <Plus data-icon="inline-start" />
                 New
               </Button>
           </div>
@@ -780,8 +959,9 @@ function RepeaterWorkspace({
             <Badge className="method-badge" variant="outline">
               {selectedItem.method}
             </Badge>
-            <Input value={selectedItem.target} readOnly />
+            <Input className="target-input" value={selectedItem.target} readOnly />
             <Button className="workbench-button primary-action" onClick={onSend} size="sm">
+              <Send data-icon="inline-start" />
               Send
             </Button>
           </div>

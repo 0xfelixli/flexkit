@@ -29,6 +29,9 @@
 
 .editor-toolbar strong {
   color: var(--fk-accent-strong);
+  font-size: 12px;
+  font-weight: 700;
+  min-width: 64px;
 }
 
 .editor-tabs {
@@ -49,7 +52,7 @@
   height: 100%;
   overflow: auto;
   color: var(--fk-text);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--fk-font-mono);
   font-size: 12px;
   line-height: 1.6;
 }
@@ -68,6 +71,7 @@
 }
 
 .code-view .cm-editor {
+  background: var(--fk-surface);
   color: var(--fk-text);
   outline: none;
 }
@@ -94,7 +98,15 @@
 
 .code-view .cm-content {
   padding: 10px 0;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--fk-font-mono);
   font-size: 12px;
   line-height: 1.6;
+}
+
+.code-view .cm-line {
+  padding: 0 12px;
+}
+
+.code-view .cm-gutterElement {
+  padding: 0 8px 0 10px;
 }
