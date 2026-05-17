@@ -1,3 +1,4 @@
+import { memo, useMemo } from "react";
 import { json } from "@codemirror/lang-json";
 import { search, searchKeymap } from "@codemirror/search";
 import { keymap } from "@codemirror/view";
@@ -12,22 +13,29 @@ type CodeEditorProps = {
   text: string;
 };
 
+const codeEditorBasicSetup = {
+  foldGutter: false,
+  highlightActiveLine: false,
+  highlightActiveLineGutter: false,
+  lineNumbers: true,
+};
+
 function CodeEditor({ editable = false, mode, onChange, text }: CodeEditorProps) {
+  const extensions = useMemo(
+    () => [
+      search(),
+      keymap.of(searchKeymap),
+      ...(mode === "Hex" ? [] : [json()]),
+    ],
+    [mode],
+  );
+
   return (
     <CodeMirror
-      basicSetup={{
-        foldGutter: false,
-        highlightActiveLine: false,
-        highlightActiveLineGutter: false,
-        lineNumbers: true,
-      }}
+      basicSetup={codeEditorBasicSetup}
       className="code-view"
       editable={editable}
-      extensions={[
-        search(),
-        keymap.of(searchKeymap),
-        ...(mode === "Hex" ? [] : [json()]),
-      ]}
+      extensions={extensions}
       height="100%"
       onChange={onChange}
       theme={vscodeLight}
@@ -36,4 +44,4 @@ function CodeEditor({ editable = false, mode, onChange, text }: CodeEditorProps)
   );
 }
 
-export default CodeEditor;
+export default memo(CodeEditor);

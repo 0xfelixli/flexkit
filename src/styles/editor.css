@@ -1,112 +1,148 @@
 .editors {
-  min-height: 0;
-  background: var(--fk-surface);
+    min-height: 0;
+    background: var(--fk-border-strong);
 }
 
 .editor-pane {
-  display: grid;
-  grid-template-rows: 36px minmax(0, 1fr);
-  width: 100%;
-  height: 100%;
-  min-width: 0;
-  min-height: 0;
-  border-right: 1px solid var(--fk-border);
+    display: grid;
+    grid-template-rows: var(--fk-chrome-height) minmax(0, 1fr);
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    border-right: 1px solid var(--fk-border);
 }
 
 .editor-pane:last-child {
-  border-right: 0;
+    border-right: 0;
 }
 
 .editor-toolbar {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  border-bottom: 1px solid var(--fk-border-subtle);
-  background: var(--fk-surface-subtle);
-  padding: 0 10px;
-  font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-bottom: 1px solid var(--fk-border-subtle);
+    background: linear-gradient(180deg, var(--fk-surface-subtle), var(--fk-surface-muted));
+    padding: 0 8px;
+    font-size: 12px;
+    box-shadow: inset 0 1px 0 var(--fk-hairline);
+}
+
+.editor-toolbar-left,
+.editor-toolbar-actions {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+}
+
+.editor-toolbar-left {
+    gap: 12px;
+}
+
+.editor-toolbar-actions {
+    gap: 2px;
 }
 
 .editor-toolbar strong {
-  color: var(--fk-accent-strong);
-  font-size: 12px;
-  font-weight: 700;
-  min-width: 64px;
+    color: var(--fk-text);
+    font-size: var(--fk-font-size-md);
+    font-weight: 700;
+    min-width: 64px;
+}
+
+.editor-state {
+    margin-right: 4px;
+    color: var(--fk-muted);
+    font-size: var(--fk-font-size-xs);
+}
+
+.editor-state.dirty {
+    color: var(--fk-muted-strong);
 }
 
 .editor-tabs {
-  display: flex;
-  align-items: center;
-  gap: 2px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }
 
 .editor-tabs button,
 .inspector-tabs button {
-  padding: 5px 8px;
-  color: var(--fk-muted-strong);
+    padding: 5px 8px;
+    color: var(--fk-muted-strong);
 }
 
 .code-view {
-  min-width: 0;
-  min-height: 0;
-  height: 100%;
-  overflow: auto;
-  color: var(--fk-text);
-  font-family: var(--fk-font-mono);
-  font-size: 12px;
-  line-height: 1.6;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    overflow: auto;
+    overscroll-behavior: contain;
+    color: var(--fk-text);
+    font-family: var(--fk-font-mono);
+    font-size: var(--fk-font-size-md);
+    line-height: var(--fk-line-height-md);
+    scrollbar-color: var(--fk-border-strong) transparent;
+    scrollbar-width: thin;
 }
 
 .code-loading {
-  display: flex;
-  align-items: center;
-  padding: 12px;
-  color: var(--fk-muted);
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    color: var(--fk-muted);
 }
 
 .code-view,
 .code-view .cm-editor,
 .code-view .cm-scroller {
-  height: 100%;
+    overscroll-behavior: contain;
+}
+
+.code-view,
+.code-view .cm-editor,
+.code-view .cm-scroller {
+    height: 100%;
 }
 
 .code-view .cm-editor {
-  background: var(--fk-surface);
-  color: var(--fk-text);
-  outline: none;
+    background: var(--fk-surface-raised);
+    color: var(--fk-text);
+    outline: none;
 }
 
 .code-view .cm-gutters {
-  border-right: 1px solid var(--fk-border-subtle);
-  background: var(--fk-surface-subtle);
-  color: var(--fk-muted);
+    border-right: 1px solid var(--fk-border-subtle);
+    background: linear-gradient(90deg, var(--fk-surface-subtle), #e9edf2);
+    color: var(--fk-muted);
 }
 
 .code-view .cm-activeLine,
 .code-view .cm-activeLineGutter {
-  background: var(--fk-selected);
+    background: #edf2f7;
 }
 
 .code-view .cm-selectionBackground,
 .code-view .cm-focused .cm-selectionBackground {
-  background: var(--fk-selected-strong);
+    background: #ccd9e8;
 }
 
 .code-view .cm-cursor {
-  border-left-color: var(--fk-accent);
+    border-left-color: var(--fk-accent);
 }
 
 .code-view .cm-content {
-  padding: 10px 0;
-  font-family: var(--fk-font-mono);
-  font-size: 12px;
-  line-height: 1.6;
+    padding: 8px 0;
+    font-family: var(--fk-font-mono);
+    font-size: var(--fk-font-size-md);
+    line-height: var(--fk-line-height-md);
 }
 
 .code-view .cm-line {
-  padding: 0 12px;
+    padding: 0 10px;
 }
 
 .code-view .cm-gutterElement {
-  padding: 0 8px 0 10px;
+    padding: 0 7px 0 8px;
 }
